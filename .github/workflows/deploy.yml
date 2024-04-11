@@ -44,11 +44,13 @@ jobs:
       run: |
         cp -R target-repo/conference/* current-repo/conference/
 
-    - name: Deploy conference ddl
-      uses: JamesIves/github-pages-deploy-action@v4
+    - name: Push changes
+      uses: ad-m/github-push-action@master
       with:
-        folder: .
+        directory: usslab-deadlines
+        github_token: ${{ secrets.ACCESS_TOKEN }}
         branch: main
+        repository: ZJUshine/usslab-deadlines
     
     - name: Validate yml files
       run: |
