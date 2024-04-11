@@ -14,17 +14,9 @@ jobs:
 
     steps:
     
-    - name: Checkout current repo
+    - name: Checkout
       uses: actions/checkout@v2
-      with:
-        path: 'current-repo'
-  
-    - name: Checkout target repo
-      uses: actions/checkout@v2
-      with:
-        repository: 'ccfddl/ccf-deadlines'
-        path: 'target-repo'
-  
+
     - name: Setup Node.js environment
       uses: actions/setup-node@main
       with: 
@@ -39,19 +31,22 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install PyYAML jsonschema
-    
-    - name: Copy folder from target repo to current repo
-      run: |
-        cp -R target-repo/conference/* current-repo/conference/
 
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        directory: ./
-        github_token: ${{ secrets.ACCESS_TOKEN }}
-        branch: main
-        repository: ZJUshine/usslab-deadlines
-    
+    - name: Sync conference folder
+      run: |
+        git clone https://github.com/ccfddl/ccf-deadlines.git temp_directory
+        rm -rf conference
+        mv temp_directory/conference conference
+        rm -rf temp_directory
+
+    - name: Commit and push conference folder changes
+      run: |
+        git config --local user.email "3190103641@zju.edu.cn"
+        git config --local user.name "ZJUshine"
+        git add conference/
+        git commit -m "Sync conference folder from ccfddl/ccf-deadlines"
+        git push
+
     - name: Validate yml files
       run: |
         python ./scripts/validate
