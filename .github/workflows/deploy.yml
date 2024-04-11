@@ -36,6 +36,7 @@ jobs:
       run: |
         git clone https://github.com/ccfddl/ccf-deadlines.git temp_directory
         rm temp_directory/conference/types.yml
+        mv conference/types.yml temp_directory/conference/types.yml
         rm -rf conference
         mv temp_directory/conference conference
         rm -rf temp_directory
