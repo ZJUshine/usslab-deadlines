@@ -47,6 +47,7 @@ jobs:
     - name: Deploy conference ddl
       uses: JamesIves/github-pages-deploy-action@v4
       with:
+        folder: current-repo
         branch: main
         repository-name: ZJUshine/usslab-deadlines
     
