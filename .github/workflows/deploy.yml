@@ -40,8 +40,19 @@ jobs:
         rm -rf conference
         mv temp_directory/conference conference
         rm -rf temp_directory
-
+    - name: Check for changes
+      id: check_changes
+      run: |
+        if git diff --quiet; then
+          echo "No changes to commit."
+          echo "has_changes=no" >> $GITHUB_ENV
+        else
+          echo "Changes detected."
+          echo "has_changes=yes" >> $GITHUB_ENV
+        fi
+    
     - name: Commit and push conference folder changes
+      if: env.has_changes == 'yes'
       run: |
         git config --local user.email "3190103641@zju.edu.cn"
         git config --local user.name "ZJUshine"
