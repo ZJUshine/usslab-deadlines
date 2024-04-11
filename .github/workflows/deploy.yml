@@ -49,7 +49,6 @@ jobs:
       with:
         folder: .
         branch: main
-        repository-name: ZJUshine/usslab-deadlines
     
     - name: Validate yml files
       run: |
