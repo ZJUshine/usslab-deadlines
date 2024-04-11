@@ -1,5 +1,5 @@
 $schema: http://json-schema.org/draft-07/schema#
-description: Validation schema for CCFDDL Conference Specification 3.0.X.
+description: Validation schema for USSLABDDL Conference Specification 3.0.X.
 type: array
 items:
   type: object
@@ -18,7 +18,7 @@ items:
       description: Description, or long name, with no session
       type: string
     sub:
-      description: The category that the conference is labeled by CCF.
+      description: The category that the conference is labeled by USSLAB.
       type: string
       enum:
         - DS
@@ -32,7 +32,7 @@ items:
         - HI
         - MX
     rank:
-      description: The level that the conference is ranked by CCF, e.g., A, B, C
+      description: The level that the conference is ranked by USSLAB, e.g., A, B, C
       type: string
       enum:
         - A

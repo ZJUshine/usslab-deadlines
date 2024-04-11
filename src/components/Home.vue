@@ -73,7 +73,7 @@
             </el-row>
             <el-row>
               <div v-if="scope.row.status === 'TBD'">
-                Deadline: <a href="https://github.com/ccfddl/ccf-deadlines/pulls">pull request to update</a>
+                Deadline: <a href="https://github.com/ZJUshine/usslab-deadlines/pulls">pull request to update</a>
               </div>
               <div v-else>
                 Deadline: {{scope.row.localDDL}} ({{scope.row.originDDL}})
@@ -133,7 +133,7 @@ export default {
       typeMap: new Map(),
       timeZone: '',
       utcMap: new Map(),
-      rankoptions: {'A': 'CCF A', 'B': 'CCF B', 'C': 'CCF C', 'N': 'Non-CCF'},
+      rankoptions: {'A': 'USSLAB A', 'B': 'USSLAB B', 'C': 'USSLAB C', 'N': 'Non-USSLAB'},
       typesList: [],
       rankList: [],
       cachedLikes: [],
@@ -424,51 +424,7 @@ export default {
 
 <style scoped>
 /*/deep/ .el-table tbody tr { pointer-events:; }*/
-/deep/ .el-input--mini .el-input__inner {
-  height: 20px;
-  line-height: 20px;
-}
-
-/deep/ .el-input--mini .el-input__icon {
-  line-height: 20px;
-}
-
-/deep/ .el-checkbox__inner {
-  height: 20px;
-  width: 20px;
-}
-
-/deep/ .el-button {
-  height: 20px;
-  padding: 0px 5px;
-}
-
-/deep/ .el-checkbox-button--mini .el-checkbox-button__inner {
-  padding: 3px 10px;
-}
-
-/deep/ .el-checkbox__inner::after {
-  -webkit-box-sizing: content-box;
-  box-sizing: content-box;
-  content: "";
-  border: 3px solid #FFF;
-  border-left: 0;
-  border-top: 0;
-  height: 11px;
-  left: 6px;
-  position: absolute;
-  top: 1px;
-  -webkit-transform: rotate(45deg) scaleY(0);
-  transform: rotate(45deg) scaleY(0);
-  width: 4px;
-  -webkit-transition: -webkit-transform .15s ease-in .05s;
-  transition: -webkit-transform .15s ease-in .05s;
-  transition: transform .15s ease-in .05s,-webkit-transform .15s ease-in .05s;
-  -webkit-transform-origin: center;
-  transform-origin: center;
-}
-
-/deep/ .el-checkbox__input.is-indeterminate .el-checkbox__inner::before {
+.el-checkbox__input.is-indeterminate .el-checkbox__inner::before {
   height: 6px;
   top: 6px;
 }
