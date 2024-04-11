@@ -2,37 +2,38 @@ import os
 import shutil
 import yaml
 
-# Define the path to the source 'conference' directory and the YML file with conference names
-source_dir = 'conference'  # Update this to your actual conference directory path
-yml_file = './scripts/usslab_classification.yml'  # Update this to the path of your uploaded YML file
-destination_dir = 'selected_conference'  # Update this to your desired new folder path
+source_dir = 'conference'
+yml_file = './scripts/usslab_classification.yml'
+destination_dir = 'selected_conference'
 
 def copy_conferences(src_dir, dest_dir, yml_path):
-    # Create the destination directory if it does not exist
-    if not os.path.exists(dest_dir):
-        os.makedirs(dest_dir)
-
-    # Read the YML file to get the list of conferences
+    os.makedirs(dest_dir, exist_ok=True)
     with open(yml_path, 'r') as file:
         conferences = yaml.safe_load(file)
 
-    # Loop through the conference entries in the YML file
     for conference in conferences:
         dblp = conference.get('dblp')
         sub = conference.get('sub')
+
         os.makedirs(os.path.join(dest_dir, sub), exist_ok=True)
-        if dblp:
-            # Construct the filename of the conference YML file
-            filename = dblp + '.yml'
-            src_file_path = os.path.join(src_dir, sub, filename)
-            
-            # Check if the source file exists
-            if os.path.exists(src_file_path):
-                # Copy the file to the destination directory
-                shutil.copy(src_file_path, os.path.join(dest_dir, sub))
-                print(f'Copied: {filename}')
-            else:
-                print(f'File not found: {filename}')
+
+        filename = dblp + '.yml'
+        src_file_path = os.path.join(src_dir, sub, filename)
+        if os.path.exists(src_file_path):
+            shutil.copy(src_file_path, os.path.join(dest_dir, sub))
+            print(f'Copied: {filename}')
+            # 读取文件内容，如果sub，rank和yml文件内容不一致，则按照yml文件内容更新文件
+            with open(os.path.join(dest_dir, sub), 'r') as file:
+                content = yaml.safe_load(file)
+                if content.get('sub') != sub:
+                    content['sub'] = sub
+                if content.get('rank') != conference.get('rank'):
+                    content['rank'] = conference.get('rank')
+            with open(os.path.join(dest_dir, sub), 'w') as file:
+                yaml.dump(content, file)
+
+        else:
+            print(f'File not found: {filename}')
 
 if __name__ == '__main__':
     copy_conferences(source_dir, destination_dir, yml_file)
