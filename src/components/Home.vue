@@ -144,7 +144,7 @@ export default {
   methods: {
     loadFile () {
       this.timeZone = tz
-      this.$http.get(this.publicPath + 'conference/types.yml').then(response => {
+      this.$http.get(this.publicPath + 'usslab-conference-ddls/conference/types.yml').then(response => {
         const doc = yaml.load(response.body)
         this.subList = doc
         for (let i = 0; i < this.subList.length; i++) {
@@ -160,7 +160,7 @@ export default {
     },
     getAllConf() {
       // get all conf
-      this.$http.get(this.publicPath + 'conference/allconf.yml').then(response => {
+      this.$http.get(this.publicPath + 'usslab-conference-ddls/conference/allconf.yml').then(response => {
         const allconf = yaml.load(response.body)
         // preprocess
         let doc = []
