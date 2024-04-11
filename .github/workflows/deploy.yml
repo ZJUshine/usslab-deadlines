@@ -47,7 +47,7 @@ jobs:
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
-        directory: usslab-deadlines
+        directory: ./
         github_token: ${{ secrets.ACCESS_TOKEN }}
         branch: main
         repository: ZJUshine/usslab-deadlines
