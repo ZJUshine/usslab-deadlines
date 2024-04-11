@@ -1,0 +1,40 @@
+import os
+import yaml
+
+def modify_conferences(src_dir, yml_path):
+    with open(yml_path, 'r') as file:
+        conferences = yaml.safe_load(file)
+
+    for conference in conferences:
+        dblp = conference.get('dblp')
+        sub = conference.get('sub')
+        rank = conference.get('rank')
+
+        src_file_path = os.path.join(src_dir, sub, dblp + '.yml')  # Lowercase for directory compatibility
+        if os.path.exists(src_file_path):
+            with open(src_file_path, 'r') as file:
+                content = yaml.safe_load(file)
+
+            needs_update = False
+            for conf in content:
+                if 'sub' in conf and conf['sub'] != sub:
+                    conf['sub'] = sub
+                    needs_update = True
+                    print(f'Updated sub to {sub} in {dblp}.yml')
+
+                if 'rank' in conf and conf['rank'] != rank:
+                    conf['rank'] = rank
+                    needs_update = True
+                    print(f'Updated rank to {rank} in {dblp}.yml')
+
+            if needs_update:
+                with open(src_file_path, 'w') as file:
+                    yaml.dump(content, file, sort_keys=False)
+
+        else:
+            print(f'File not found: {dblp}.yml in {sub.lower()}')
+
+if __name__ == '__main__':
+    source_dir = 'selected_conference'
+    yml_file = './scripts/usslab_classification.yml'
+    modify_conferences(source_dir, yml_file)

@@ -19,22 +19,10 @@ def copy_conferences(src_dir, dest_dir, yml_path):
 
         filename = dblp + '.yml'
         src_file_path = os.path.join(src_dir, sub, filename)
+        
         if os.path.exists(src_file_path):
             shutil.copy(src_file_path, os.path.join(dest_dir, sub))
             print(f'Copied: {filename}')
-            # 读取文件内容，如果sub，rank和yml文件内容不一致，则按照yml文件内容更新文件
-            with open(os.path.join(dest_dir, sub, filename), 'r') as file:
-                content = yaml.safe_load(file)
-                if content.get('sub') != sub:
-                    content['sub'] = sub
-                    print(f'Updated sub: {sub}')
-                if content.get('rank') != conference.get('rank'):
-                    content['rank'] = conference.get('rank')
-                    print(f'Updated rank: {conference.get("rank")}')
-            with open(os.path.join(dest_dir, sub, filename), 'w') as file:
-                yaml.dump(content, file)
-            
-
         else:
             print(f'File not found: {filename}')
 

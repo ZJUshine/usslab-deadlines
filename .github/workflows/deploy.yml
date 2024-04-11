@@ -31,6 +31,9 @@ jobs:
     - name: Select USSLAB conference
       run: |
         python ./scripts/select
+    - name: Modify conference yml files
+      run: |
+        python ./scripts/modify
     - name: Assemble yml files
       run: |
         mkdir -p public/conference && cd public/conference
