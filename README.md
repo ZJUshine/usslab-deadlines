@@ -25,7 +25,6 @@ yarn build
 
 * .github：存放GitHub特定文件和配置，如CI/CD工作流配置。
 * .readme_assets：用于README.md文件中的静态资源。
-* accept_rates：包含关于会议接受率的数据。
 * conference：可能存储会议相关的数据或配置文件。
 * public：用于存放公共静态文件
 * scripts：包含用于开发和构建过程中的脚本。
@@ -38,3 +37,39 @@ yarn build
 * vue.config.js：Vue.js项目的配置文件。
 * yarn.lock：确定项目依赖的确切版本。
 
+# TODO
+
+- title: OSDI
+  sub: NW
+  rank: A
+  dblp: osdi
+
+- title: SIGMETRICS
+  sub: NW
+  rank: A
+  dblp: sigmetrics
+
+- title: SenSys
+  sub: NW
+  rank: B
+  dblp: sensys
+
+- title: SECON
+  sub: NW
+  rank: B
+  dblp: secon
+
+- title: HotMobile
+  sub: NW
+  rank: B
+  dblp: hotmobile
+
+- title: MASS
+  sub: NW
+  rank: C
+  dblp: mass
+
+- title: ICPADS
+  sub: NW
+  rank: C
+  dblp: icpads

@@ -28,10 +28,13 @@ jobs:
     - name: Validate yml files
       run: |
         python ./scripts/validate
+    - name: Select USSLAB conference
+      run: |
+        python ./scripts/select
     - name: Assemble yml files
       run: |
         mkdir -p public/conference && cd public/conference
-        awk 1 `find ../../conference -name '*.yml' -not -path '**/types.yml'` > allconf.yml
+        awk 1 `find ../../selected_conference -name '*.yml' -not -path '**/types.yml'` > allconf.yml
         cp ../../conference/types.yml .
         cd ../..
     - name: Get yarn cache directory path

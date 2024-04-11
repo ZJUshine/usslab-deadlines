@@ -1,0 +1,38 @@
+import os
+import shutil
+import yaml
+
+# Define the path to the source 'conference' directory and the YML file with conference names
+source_dir = 'conference'  # Update this to your actual conference directory path
+yml_file = './scripts/usslab_classification.yml'  # Update this to the path of your uploaded YML file
+destination_dir = 'selected_conference'  # Update this to your desired new folder path
+
+def copy_conferences(src_dir, dest_dir, yml_path):
+    # Create the destination directory if it does not exist
+    if not os.path.exists(dest_dir):
+        os.makedirs(dest_dir)
+
+    # Read the YML file to get the list of conferences
+    with open(yml_path, 'r') as file:
+        conferences = yaml.safe_load(file)
+
+    # Loop through the conference entries in the YML file
+    for conference in conferences:
+        dblp = conference.get('dblp')
+        sub = conference.get('sub')
+        os.makedirs(os.path.join(dest_dir, sub), exist_ok=True)
+        if dblp:
+            # Construct the filename of the conference YML file
+            filename = dblp + '.yml'
+            src_file_path = os.path.join(src_dir, sub, filename)
+            
+            # Check if the source file exists
+            if os.path.exists(src_file_path):
+                # Copy the file to the destination directory
+                shutil.copy(src_file_path, os.path.join(dest_dir, sub))
+                print(f'Copied: {filename}')
+            else:
+                print(f'File not found: {filename}')
+
+if __name__ == '__main__':
+    copy_conferences(source_dir, destination_dir, yml_file)

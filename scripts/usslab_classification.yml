@@ -1,0 +1,233 @@
+- title: USENIX Security
+  sub: SC
+  rank: A
+  dblp: uss
+
+- title: S&P
+  sub: SC
+  rank: A
+  dblp: sp
+
+- title: CCS
+  sub: SC
+  rank: A
+  dblp: ccs
+
+- title: NDSS
+  sub: SC
+  rank: A
+  dblp: ndss
+
+- title: CHES
+  sub: SC
+  rank: A
+  dblp: ches
+
+- title: AsiaCCS
+  sub: SC
+  rank: B
+  dblp: ccs
+
+- title:  ACSAC
+  sub: SC
+  rank: B
+  dblp: acsac
+
+- title: DSN
+  sub: SC
+  rank: B
+  dblp: dsn
+
+- title: RAID
+  sub: SC
+  rank: B
+  dblp: raid
+
+- title: WiSec
+  sub: SC
+  rank: B
+  dblp: wisec
+
+- title: ESORICS
+  sub: SC
+  rank: B
+  dblp: esorics
+
+- title: HotSec
+  sub: SC
+  rank: C
+  dblp: hotsec
+
+- title: SOUPS
+  sub: SC
+  rank: C
+  dblp: soups
+
+- title: Trustcom
+  sub: SC
+  rank: C
+  dblp: trustcom
+
+- title: ACNS
+  sub: SC
+  rank: C
+  dblp: acns
+
+- title: NSPW
+  sub: SC
+  rank: C
+  dblp: nspw
+
+- title: PETS
+  sub: SC
+  rank: C
+  dblp: pets
+
+- title: EuroS&P
+  sub: SC
+  rank: C
+  dblp: eurosp
+
+- title: SIGCOMM
+  sub: NW
+  rank: A
+  dblp: sigcomm
+
+- title: MobiCom
+  sub: NW
+  rank: A
+  dblp: mobicom
+
+- title: MobiSys
+  sub: NW
+  rank: A
+  dblp: mobisys
+
+- title: NSDI
+  sub: NW
+  rank: A
+  dblp: nsdi
+
+# ---------------------------
+# - title: OSDI
+#   sub: NW
+#   rank: A
+#   dblp: osdi
+
+# - title: SIGMETRICS
+#   sub: NW
+#   rank: A
+#   dblp: sigmetrics
+# ---------------------------
+
+- title: INFOCOM
+  sub: NW
+  rank: B
+  dblp: infocom
+
+# ---------------------------
+# - title: SenSys
+#   sub: NW
+#   rank: B
+#   dblp: sensys
+# ---------------------------
+- title: ICNP
+  sub: NW
+  rank: B
+  dblp: icnp
+
+- title: IPSN
+  sub: NW
+  rank: B
+  dblp: ipsn
+
+- title: IMC
+  sub: NW
+  rank: B
+  dblp: imc
+
+- title: MobiHoc
+  sub: NW
+  rank: B
+  dblp: mobihoc
+
+- title: CoNEXT
+  sub: NW
+  rank: B
+  dblp: conext
+# ---------------------------
+# - title: SECON
+#   sub: NW
+#   rank: B
+#   dblp: secon
+
+# - title: HotMobile
+#   sub: NW
+#   rank: B
+#   dblp: hotmobile
+# ---------------------------
+- title: IWQoS
+  sub: NW
+  rank: C
+  dblp: iwqos
+# ---------------------------
+# - title: MASS
+#   sub: NW
+#   rank: C
+#   dblp: mass
+
+# - title: ICPADS
+#   sub: NW
+#   rank: C
+#   dblp: icpads
+# ---------------------------
+- title: CHI
+  sub: HI
+  rank: A
+  dblp: chi
+
+- title: UbiComp
+  sub: HI
+  rank: A
+  dblp: ubicomp
+
+- title: UIST
+  sub: HI
+  rank: A
+  dblp: uist
+
+- title: CSCW
+  sub: HI
+  rank: A
+  dblp: cscw
+
+- title: WWW
+  sub: HI
+  rank: A
+  dblp: www
+
+- title: CVPR
+  sub: AI
+  rank: A
+  dblp: cvpr
+
+- title: ICML
+  sub: AI
+  rank: A
+  dblp: icml
+
+- title: ICLR
+  sub: AI
+  rank: A
+  dblp: iclr
+
+- title: NeurIPS
+  sub: AI
+  rank: A
+  dblp: nips
+
+- title: AAAI
+  sub: AI
+  rank: B
+  dblp: aaai
+
