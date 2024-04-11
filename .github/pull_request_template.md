@@ -1,4 +1,4 @@
-<!-- Thank you for contributing to ccf-deadlines!
+<!-- Thank you for contributing to usslab-deadlines!
 
 PR Title Format: Update conf_name conf_year
 -->

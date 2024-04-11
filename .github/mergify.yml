@@ -6,7 +6,7 @@ pull_request_rules:
     actions:
       comment:
         message: |
-          Welcome to ccf-deadlines!
+          Welcome to usslab-deadlines!
           We're delighted to have you onboard (p≧w≦q)
       label:
         add: ['updateconf']

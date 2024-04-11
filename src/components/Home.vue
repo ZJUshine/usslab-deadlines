@@ -366,7 +366,7 @@ export default {
     },
     formatiCloudCalendar(row){
       return "data:text/calendar;charset=utf8,BEGIN:VCALENDAR%0AVERSION:2.0%0ABEGIN:VEVENT%0A" +
-          "URL:https://ccfddl.github.io/%0A" +
+          "URL:https://zjushine.github.io/usslab-conference-ddls/%0A" +
           "DTSTART:" + moment(row.deadline + this.utcMap.get(row.timezone)).toISOString().replace(/-|:|\.\d\d\d/g,"") + "%0A" +
           "DTEND:" + moment(row.deadline + this.utcMap.get(row.timezone)).toISOString().replace(/-|:|\.\d\d\d/g,"") + "%0A" +
           "SUMMARY:" + row.title + " " + row.year + " Deadline %0A" +
