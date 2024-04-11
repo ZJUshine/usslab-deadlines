@@ -47,8 +47,6 @@ jobs:
     - name: Deploy conference ddl
       uses: JamesIves/github-pages-deploy-action@v4
       with:
-        folder: conference
-        token: ${{ secrets.ACCESS_TOKEN }}
         branch: main
         repository-name: ZJUshine/usslab-deadlines
     
