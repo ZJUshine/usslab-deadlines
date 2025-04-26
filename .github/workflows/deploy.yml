@@ -28,7 +28,7 @@ jobs:
     - name: Setup Node.js environment
       uses: actions/setup-node@v4 # Updated from main to v4
       with:
-        node-version: '18.x' # Updated Node version to a more recent LTS version (15.x is EOL)
+        node-version: '18.x' # Using Node.js 18 LTS
         # Consider using 'lts/*' or a specific LTS version like '18.x', '20.x'
 
     # Step 3: Sets up Python environment
@@ -136,6 +136,9 @@ jobs:
 
     # Step 14: Installs project dependencies and builds the project
     - name: Install dependency and build
+      # Set NODE_OPTIONS to use legacy OpenSSL provider to fix build errors with Node 17+
+      env:
+        NODE_OPTIONS: --openssl-legacy-provider
       run: |
         yarn config set strict-ssl false
         # Install dependencies only if cache missed
