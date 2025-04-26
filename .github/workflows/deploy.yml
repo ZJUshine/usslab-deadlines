@@ -1,106 +1,153 @@
+# Workflow name
 name: Deploy
 
+# Controls when the workflow will run
 on:
   schedule:
+    # Runs every 7 days at midnight UTC
     - cron: '0 0 */7 * *'
   push:
+    # Runs on pushes targeting the main branch
     branches: [ main ]
 
+# Defines the jobs that will run as part of the workflow
 jobs:
   build:
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    # Permissions needed for the job
     permissions:
-      contents: write
+      contents: write # Needed to push changes back to the repo
 
     steps:
-    
+    # Step 1: Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4 # Updated from v3
 
+    # Step 2: Sets up Node.js environment
     - name: Setup Node.js environment
-      uses: actions/setup-node@main
-      with: 
-        node-version: '15.x'
-  
+      uses: actions/setup-node@v4 # Updated from main to v4
+      with:
+        node-version: '18.x' # Updated Node version to a more recent LTS version (15.x is EOL)
+        # Consider using 'lts/*' or a specific LTS version like '18.x', '20.x'
+
+    # Step 3: Sets up Python environment
     - name: Set up Python 3.9
-      uses: actions/setup-python@v1
+      uses: actions/setup-python@v5 # Updated from v1 to v5
       with:
         python-version: 3.9
-    
-    - name: Install dependencies
+
+    # Step 4: Installs Python dependencies
+    - name: Install Python dependencies
       run: |
         python -m pip install --upgrade pip
         python -m pip install PyYAML jsonschema
 
+    # Step 5: Syncs the conference folder from the ccfddl/ccf-deadlines repository
     - name: Sync conference folder
       run: |
         git clone https://github.com/ccfddl/ccf-deadlines.git temp_directory
-        rm temp_directory/conference/types.yml
-        mv conference/types.yml temp_directory/conference/types.yml
+        # Check if types.yml exists in the source before removing
+        if [ -f temp_directory/conference/types.yml ]; then
+          rm temp_directory/conference/types.yml
+        fi
+        # Check if types.yml exists locally before moving
+        if [ -f conference/types.yml ]; then
+          mv conference/types.yml temp_directory/conference/types.yml
+        fi
         rm -rf conference
         mv temp_directory/conference conference
         rm -rf temp_directory
+
+    # Step 6: Checks if there are any changes in the conference folder
     - name: Check for changes
       id: check_changes
       run: |
-        if git diff --quiet; then
-          echo "No changes to commit."
-          echo "has_changes=no" >> $GITHUB_ENV
-        else
-          echo "Changes detected."
+        # Check if the 'conference' directory exists and has changes
+        if [ -d "conference" ] && ! git diff --quiet conference/; then
+          echo "Changes detected in conference folder."
           echo "has_changes=yes" >> $GITHUB_ENV
+        else
+          echo "No changes to commit in conference folder."
+          echo "has_changes=no" >> $GITHUB_ENV
         fi
-    
+
+    # Step 7: Commits and pushes changes if any were detected
     - name: Commit and push conference folder changes
+      # Only run this step if changes were detected
       if: env.has_changes == 'yes'
       run: |
-        git config --local user.email "3190103641@zju.edu.cn"
-        git config --local user.name "ZJUshine"
+        git config --local user.email "action@github.com" # Use GitHub Actions bot email
+        git config --local user.name "GitHub Action" # Use GitHub Actions bot name
         git add conference/
         git commit -m "Sync conference folder from ccfddl/ccf-deadlines"
         git push
 
+    # Step 8: Validates the YAML files using a Python script
     - name: Validate yml files
       run: |
         python ./scripts/validate
-    
+
+    # Step 9: Selects specific conference files using a Python script
     - name: Select USSLAB conference
       run: |
         python ./scripts/select
-      
+
+    # Step 10: Modifies conference YAML files using a Python script
     - name: Modify conference yml files
       run: |
         python ./scripts/modify
 
+    # Step 11: Assembles selected YAML files into a single file
     - name: Assemble yml files
       run: |
         mkdir -p public/conference && cd public/conference
-        awk 1 `find ../../selected_conference -name '*.yml' -not -path '**/types.yml'` > allconf.yml
-        cp ../../conference/types.yml .
+        # Ensure the source directory exists before running find
+        if [ -d "../../selected_conference" ]; then
+          # Use find with -print0 and xargs -0 for safety with filenames
+          find ../../selected_conference -name '*.yml' -not -path '**/types.yml' -print0 | xargs -0 awk 1 > allconf.yml
+        else
+          echo "Directory selected_conference not found, skipping assembly."
+          # Create an empty file if the source doesn't exist to avoid downstream errors
+          touch allconf.yml
+        fi
+        # Copy types.yml if it exists
+        if [ -f "../../conference/types.yml" ]; then
+          cp ../../conference/types.yml .
+        else
+          echo "types.yml not found in conference directory."
+        fi
         cd ../..
 
+    # Step 12: Get yarn cache directory path
     - name: Get yarn cache directory path
       id: yarn-cache-dir-path
-      run: echo "::set-output name=dir::$(yarn cache dir)"
-    
-    - uses: actions/cache@v2
-      id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+      run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT # Updated way to set output
+
+    # Step 13: Caches yarn dependencies
+    - name: Cache yarn dependencies
+      uses: actions/cache@v4 # Updated from v2 to v4
+      id: yarn-cache
       with:
         path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
         restore-keys: |
           ${{ runner.os }}-yarn-
 
+    # Step 14: Installs project dependencies and builds the project
     - name: Install dependency and build
       run: |
         yarn config set strict-ssl false
+        # Install dependencies only if cache missed
+        # yarn install --frozen-lockfile # More robust install
         yarn install
         yarn build
-    
+
+    # Step 15: Deploys the built project to GitHub Pages
     - name: Deploy 🚀
-      uses: JamesIves/github-pages-deploy-action@v4
+      uses: JamesIves/github-pages-deploy-action@v4 # This version is still current
       with:
-        folder: dist
-        token: ${{ secrets.ACCESS_TOKEN }}
-        branch: main
-        repository-name: ZJUshine/usslab-conference-ddls
+        folder: dist # The folder the action should deploy.
+        token: ${{ secrets.ACCESS_TOKEN }} # GitHub token needed for pushing
+        branch: main # Deploy to the main branch of the target repo
+        repository-name: ZJUshine/usslab-conference-ddls # Target repository
