@@ -108,17 +108,15 @@
   rank: A
   dblp: nsdi
 
-# ---------------------------
-# - title: OSDI
-#   sub: NW
-#   rank: A
-#   dblp: osdi
+- title: OSDI
+  sub: NW
+  rank: A
+  dblp: osdi
 
-# - title: SIGMETRICS
-#   sub: NW
-#   rank: A
-#   dblp: sigmetrics
-# ---------------------------
+- title: SIGMETRICS
+  sub: NW
+  rank: A
+  dblp: sigmetrics
 
 - title: INFOCOM
   sub: NW
@@ -200,12 +198,12 @@
   sub: HI
   rank: A
   dblp: cscw
-# ---------------------------
-# - title: WWW
-#   sub: HI
-#   rank: A
-#   dblp: www
-# ---------------------------
+
+- title: WWW
+  sub: HI
+  rank: A
+  dblp: www
+
 - title: CVPR
   sub: AI
   rank: A

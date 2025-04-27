@@ -39,16 +39,6 @@ yarn build
 
 # TODO
 
-- title: OSDI
-  sub: NW
-  rank: A
-  dblp: osdi
-
-- title: SIGMETRICS
-  sub: NW
-  rank: A
-  dblp: sigmetrics
-
 - title: SenSys
   sub: NW
   rank: B
@@ -73,8 +63,3 @@ yarn build
   sub: NW
   rank: C
   dblp: icpads
-
-- title: WWW
-  sub: HI
-  rank: A
-  dblp: www
